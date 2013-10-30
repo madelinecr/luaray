@@ -1,11 +1,19 @@
-NAME=raytracer
-CC=g++
-CFLAGS=-c -Wall
+CC=clang++
+CFLAGS=-g -Wall -pedantic -O0
+SRCDIR=src
+ODIR=build
+EXECUTABLE=raytrace
+SOURCES=main.cpp view.cpp
+OBJECTS=$(SOURCES:.cpp=.o)
 
-all: raytracer
+all: $(OBJECTS) $(EXECUTABLE)
 
-raytracer: main.o
-	$(CC) main.o -o $(NAME)
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(addprefix $(ODIR)/, $(OBJECTS)) -o $@
 
-main.o: main.cpp
-	$(CC) $(CFLAGS) main.cpp
+%.o: $(SRCDIR)/%.cpp
+	$(CC) $(CFLAGS) -c $^ -o $(ODIR)/$@
+
+clean:
+	rm $(EXECUTABLE)
+	rm build/*
