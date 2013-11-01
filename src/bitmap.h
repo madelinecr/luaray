@@ -7,7 +7,7 @@
 #define BMP_TYPE 0x4D42
 #define INFOHEADER_SIZE 40
 #define COLORPLANES 1
-#define BPP 32
+#define BPP 24
 #define COMPRESSION 0
 #define HORIZONTAL_RES 2835
 #define VERTICAL_RES 2835

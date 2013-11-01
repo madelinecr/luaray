@@ -1,5 +1,6 @@
 #include "bitmap.h"
 #include "pixel.h"
+
 #include <fstream>
 
 Bitmap::Bitmap(uint32_t const width, uint32_t const height) {
@@ -32,9 +33,9 @@ void Bitmap::write(pixel ** data) {
   int i = 0;
   for(int y = 0; y < bmp_data.height; y++) {
     for(int x = 0; x < bmp_data.width; x++) {
-      bmp_data.pixels[ i ] = static_cast<char>(data[y][x].red);
+      bmp_data.pixels[ i ] = static_cast<char>(data[y][x].blue);
       bmp_data.pixels[i+1] = static_cast<char>(data[y][x].green);
-      bmp_data.pixels[i+2] = static_cast<char>(data[y][x].blue);
+      bmp_data.pixels[i+2] = static_cast<char>(data[y][x].red);
 
       i = i + 3;
     }

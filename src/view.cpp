@@ -1,6 +1,7 @@
 #include "view.h"
 #include "pixel.h"
 #include "bitmap.h"
+
 #include <iostream>
 #include <fstream>
 
@@ -20,8 +21,8 @@ void View::render() {
   for(uint16_t y = 0; y < height; y++) {
     for(uint16_t x = 0; x < width; x++) {
       this->pixels[y][x].green = x;
-      this->pixels[y][x].blue = y;
-      this->pixels[y][x].red = 5;
+      this->pixels[y][x].red = y;
+      this->pixels[y][x].blue = x+y;
     }
   }
 
