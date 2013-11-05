@@ -3,7 +3,7 @@ CFLAGS=-g -Wall -pedantic -O0
 SRCDIR=src
 ODIR=build
 EXECUTABLE=raytrace
-SOURCES=main.cpp view.cpp bitmap.cpp
+SOURCES=main.cpp camera.cpp bitmap.cpp scene.cpp vec3.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 
 all: $(OBJECTS) $(EXECUTABLE)
