@@ -82,14 +82,23 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
 
       Vec3 normal = point - center;
 
+#ifdef DEBUG
+      point.debug();
+      center.debug();
+      normal.debug();
+#endif
+
       double angle = normal.dot(light);
       if(angle <= 0.1f) return;
 
+      if(i == 1) {
+        cout << "second sphere" << endl;
+      }
       cout << "angle " << angle << endl;
 
-      pix.red =  angle * 4;
-      pix.green = angle * 4;// * angle + 150;
-      pix.blue = angle * 4;// * angle + 150;
+      pix.red =  angle * 2;
+      pix.green = angle * 2;// * angle + 150;
+      pix.blue = angle * 2;// * angle + 150;
       //pix.red = point.m_x*80;
       //pix.green = point.m_y*80;
       //pix.blue = point.m_z*80;

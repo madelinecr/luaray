@@ -9,6 +9,10 @@ class Vec3 {
     Vec3 operator+(const Vec3& other);
     Vec3 multiply(const Vec3& other);
 
+    #ifdef DEBUG
+    void debug();
+    #endif
+
     void normalize();
     double m_x, m_y, m_z;
 };

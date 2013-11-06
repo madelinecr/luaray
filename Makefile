@@ -8,6 +8,9 @@ OBJECTS=$(SOURCES:.cpp=.o)
 
 all: $(OBJECTS) $(EXECUTABLE)
 
+debug: CFLAGS += -DDEBUG
+debug: all
+
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(addprefix $(ODIR)/, $(OBJECTS)) -o $@
 
