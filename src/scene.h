@@ -5,9 +5,11 @@
 #include "stdint.h"
 
 struct sphere {
-  sphere(double ax, double ay, double az, double aradius) 
-        : x(ax), y(ay), z(az), radius(aradius){}
-  double x, y, z, radius;
+  sphere(double ax, double ay, double az, double aradius,
+         double ared, double agreen, double ablue) 
+        : x(ax), y(ay), z(az), radius(aradius), 
+          red(ared), green(agreen), blue(ablue) {}
+  double x, y, z, radius, red, green, blue;
 };
 
 class Scene {

@@ -69,7 +69,7 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
     Vec3 point(0, 0, 0);
     if(intersection(*scene->spheres[i], prim_ray, point)) {
       sphere *s = scene->spheres[i]; 
-      Vec3 light(Vec3(-50, -50, -50));
+      Vec3 light(Vec3(5, 300, 20));
       Vec3 center(s->x, s->y, s->z);
 
       point.normalize();
@@ -84,17 +84,15 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
       normal.debug();
 #endif
 
-      double angle = normal.dot(light);
+      //double angle = normal.dot(light);
+      double angle = light.dot(normal);
       if(angle <= 0.1f) return;
 
-      if(i == 1) {
-        cout << "second sphere" << endl;
-      }
-      //cout << "angle " << angle << endl;
+      cout << angle << endl;
 
-      pix.red =  angle * 2;
-      pix.green = angle * 2;
-      pix.blue = angle * 2;
+      pix.red = s->red * angle * 2;
+      pix.green = s->green * angle * 2;
+      pix.blue = s->blue * angle * 2;
     }
   }
   return;
