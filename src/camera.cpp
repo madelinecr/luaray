@@ -65,34 +65,68 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
   Vec3 p2(0, 0, 1);
   Ray prim_ray(p1, p2);
 
+  Vec3 point_light(375, 450, 20);
   for(int i = 0; i < scene->spheres.size(); i++) {
-    Vec3 point(0, 0, 0);
-    if(intersection(*scene->spheres[i], prim_ray, point)) {
-      sphere *s = scene->spheres[i]; 
-      Vec3 light(Vec3(5, 300, 20));
-      Vec3 center(s->x, s->y, s->z);
+    for(int l = 0; l < scene->lights.size(); l++) {
 
-      point.normalize();
-      light.normalize();
-      center.normalize();
+      Vec3 point(0, 0, 0);
+      if(intersection(*scene->spheres[i], prim_ray, point)) {
+        sphere *s = scene->spheres[i]; 
+        light *current_light = scene->lights[l];
+        Vec3 center(s->x, s->y, s->z);
+        Vec3 lightdir(*(current_light->pos));
 
-      Vec3 normal = point - center;
+        Vec3 shadow_p1(point);
+        Vec3 shadow_p2(lightdir);
+
+        Ray shadow_ray(shadow_p1, shadow_p2);
+        bool in_shadow = false;
+
+        for(int k = 0; k < scene->spheres.size(); k++) {
+          Vec3 shadow_point(0, 0, 0);
+          if(i == k) {
+            //cout << "returning" << endl;
+            break;
+          }
+          if(intersection(*scene->spheres[k], shadow_ray, shadow_point)) {
+            cout << "intersection for " << i << " with " << k  << endl;
+#ifdef DEBUG
+            cout << "shadow point ";
+            shadow_point.debug();
+            cout << "shadow p1 ";
+            shadow_ray.p1->debug();
+            cout << "shadow p2 ";
+            shadow_ray.p2->debug();
+#endif
+            in_shadow = true;
+          } else {
+            //cout << "out of shadow" << endl;
+          }
+        }
+
+        point.normalize();
+        lightdir.normalize();
+        center.normalize();
+
+        Vec3 normal = point - center;
 
 #ifdef DEBUG
-      point.debug();
-      center.debug();
-      normal.debug();
+        cout << "shadow p1 ";
+        shadow_ray.p1->debug();
+        cout << "shadow p2 ";
+        shadow_ray.p2->debug();
 #endif
 
-      //double angle = normal.dot(light);
-      double angle = light.dot(normal);
-      if(angle <= 0.1f) return;
 
-      cout << angle << endl;
+        double angle = lightdir.dot(normal);
+        if(angle >= 0.1f && !in_shadow) {
+          //if(in_shadow) return;
 
-      pix.red = s->red * angle * 2;
-      pix.green = s->green * angle * 2;
-      pix.blue = s->blue * angle * 2;
+          pix.red = pix.red + s->red * angle * current_light->intensity;
+          pix.green = pix.green + s->green * angle * current_light->intensity;
+          pix.blue = pix.blue + s->blue * angle * current_light->intensity;
+        }
+      }
     }
   }
   return;
