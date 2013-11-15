@@ -3,12 +3,12 @@
 
 Scene::Scene(){}
 
-void Scene::add(sphere *asphere) {
+void Scene::add_sphere(sphere *asphere) {
   spheres.push_back(asphere);  
   std::cout << "sphere pushed" << std::endl;
 }
 
-void Scene::add(light *alight) {
+void Scene::add_light(light *alight) {
   lights.push_back(alight);
   std::cout << "light pushed" << std::endl;
 }

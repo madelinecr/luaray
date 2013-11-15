@@ -1,5 +1,9 @@
 CC=clang++
-CFLAGS=-g -Wall -pedantic -O0
+CFLAGS=-g -Wall -pedantic -O0 
+# Lua compilation headers
+CFLAGS+=-I/usr/include/lua5.2/
+# Lua library for linking stage
+LINKFLAGS=-llua5.2 -lluabind
 SRCDIR=src
 ODIR=build
 EXECUTABLE=raytrace
@@ -12,7 +16,7 @@ debug: CFLAGS += -DDEBUG
 debug: all
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(addprefix $(ODIR)/, $(OBJECTS)) -o $@
+	$(CC) $(LINKFLAGS) $(addprefix $(ODIR)/, $(OBJECTS)) -o $@
 
 %.o: $(SRCDIR)/%.cpp
 	$(CC) $(CFLAGS) -c $^ -o $(ODIR)/$@

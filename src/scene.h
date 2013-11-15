@@ -23,8 +23,8 @@ struct light {
 class Scene {
   public:
     Scene();
-    void add(sphere *asphere);
-    void add(light *alight);
+    void add_sphere(sphere *asphere);
+    void add_light(light *alight);
     std::vector<sphere*> spheres;
     std::vector<light*> lights;
 };
