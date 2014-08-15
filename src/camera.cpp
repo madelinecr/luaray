@@ -19,11 +19,6 @@ void Ray::eval(double t, Vec3 &result) {
   Vec3 scalar(0, 0, t);
   result = *p1 + (p2->multiply(scalar));
   return;
-  
- // result.m_x = result.m_x + tmp_result.m_x;
- // result.m_y = result.m_y + tmp_result.m_y;
- // result.m_z = result.m_z + tmp_result.m_z;
-  //result = *p1 + (p2->multiply(scalar));
 }
 
 Camera::Camera(uint16_t const width, uint16_t const height, Scene *scene) {
@@ -69,7 +64,6 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
   Vec3 p2(0, 0, 1);
   Ray prim_ray(p1, p2);
 
-  Vec3 point_light(375, 450, 20);
   for(int i = 0; i < scene->spheres.size(); i++) {
     for(int l = 0; l < scene->lights.size(); l++) {
 
@@ -89,12 +83,11 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
         for(int k = 0; k < scene->spheres.size(); k++) {
           Vec3 shadow_point(0, 0, 0);
           if(i == k) {
-            //cout << "returning" << endl;
             break;
           }
           if(intersection(*scene->spheres[k], shadow_ray, shadow_point)) {
-            cout << "intersection for " << i << " with " << k  << endl;
 #ifdef DEBUG
+            cout << "intersection for " << i << " with " << k  << endl;
             cout << "shadow point ";
             shadow_point.debug();
             cout << "shadow p1 ";
@@ -124,8 +117,6 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
 
         double angle = lightdir.dot(normal);
         if(angle >= 0.1f && !in_shadow) {
-          //if(in_shadow) return;
-
           pix.red = pix.red + s->red * angle * current_light->intensity;
           pix.green = pix.green + s->green * angle * current_light->intensity;
           pix.blue = pix.blue + s->blue * angle * current_light->intensity;
@@ -139,9 +130,11 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
 bool Camera::solve_quadratic(double a, double b, double c, 
                                     double &x0, double &x1) {
   double discr = b * b - 4 * a * c;
-  if(discr < 0) return false;
-  else if(discr == 0) x0 = x1 = - 0.5 * b / a;
-  else {
+  if(discr < 0) {
+    return false;
+  } else if(discr == 0) {
+    x0 = x1 = - 0.5 * b / a;
+  } else {
     double q = (b > 0) ? -0.5 * (b + sqrt(discr)) : -0.5 * (b - sqrt(discr));
     x0 = q / a;
     x1 = c / q;
@@ -151,33 +144,15 @@ bool Camera::solve_quadratic(double a, double b, double c,
 }
 
 bool Camera::intersection(sphere object, Ray &prim_ray, Vec3 &result) {
-  //cout << "prim_ray " << prim_ray.m_x << "," << prim_ray.m_y << "," 
-  //     << prim_ray.m_z << endl;
-  //cout << &prim_ray << ":";
-
-  //cout << "prim_ray.p1 " << prim_ray.p1->m_x << "," << prim_ray.p1->m_y << "," 
-  //     << prim_ray.p1->m_z << endl;
-  //cout << "prim_ray.p2 " << prim_ray.p2->m_x << "," << prim_ray.p2->m_y << "," 
-  //     << prim_ray.p2->m_z << endl;
-
   double t0, t1;
   Vec3 obj_center(object.x, object.y, object.z);
-
-  //cout << "obj_center " << obj_center.m_x << "," << obj_center.m_y << "," 
-  //     << obj_center.m_z << endl;
 
   Vec3 L = (*prim_ray.p1) - obj_center;
   L.normalize();
 
-  //cout << "L " << L.m_x << "," << L.m_y << "," 
-  //     << L.m_z << endl;
-
-
   double a = prim_ray.p2->dot(*prim_ray.p2);
-  //prim_ray.p2->normalize();
   double b = 2 * prim_ray.p2->dot(L);
   double c = L.dot(L) - (object.radius * object.radius);
-  //cout << "a " << a << " b " << b << " c " << c <<endl;
 
   if(!solve_quadratic(a, b, c, t0, t1)) {
     return false;
