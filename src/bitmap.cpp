@@ -33,8 +33,14 @@ void Bitmap::write(pixel ** data) {
   int i = 0;
   for(int y = 0; y < bmp_data.height; y++) {
     for(int x = 0; x < bmp_data.width; x++) {
+      if(data[y][x].blue > 255)
+        data[y][x].blue = 255;
       bmp_data.pixels[ i ] = static_cast<char>(data[y][x].blue);
+      if(data[y][x].green > 255)
+        data[y][x].green = 255;
       bmp_data.pixels[i+1] = static_cast<char>(data[y][x].green);
+      if(data[y][x].red > 255)
+        data[y][x].red = 255;
       bmp_data.pixels[i+2] = static_cast<char>(data[y][x].red);
 
       i = i + 3;

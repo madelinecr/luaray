@@ -1,7 +1,7 @@
 #ifndef BITMAP_H
 #define BITMAP_H
 
-#include "stdint.h"
+#include <stdint.h>
 
 #define BMP_HEADERS_SIZE 54
 #define BMP_TYPE 0x4D42
