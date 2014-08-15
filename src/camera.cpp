@@ -60,6 +60,10 @@ void Camera::render() {
 // Private methods
 // ----------------------------------------------------------------------------
 
+/**
+ * For item in scene, check if intersection
+ * if intersection, cast shadow ray based on normal of item
+ */
 void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
   Vec3 p1(x, y, 0);
   Vec3 p2(0, 0, 1);
