@@ -15,6 +15,10 @@ Ray::Ray(Vec3& ap1, Vec3& ap2) {
   return;
 }
 
+/**
+ * Walks down the ray, returning the point along the ray distance t in the
+ * direction of p2
+ */
 void Ray::eval(double t, Vec3 &result) {
   Vec3 scalar(0, 0, t);
   result = *p1 + (p2->multiply(scalar));
@@ -32,6 +36,10 @@ Camera::Camera(uint16_t const width, uint16_t const height, Scene *scene) {
   return;
 }
 
+/**
+ * Finds RGB values for each pixel in the camera display area, tracing a ray
+ * into the scene and writing these to disk in a bitmap.
+ */
 void Camera::render() {
   for(uint16_t y = 0; y < height; y++) {
     for(uint16_t x = 0; x < width; x++) {
@@ -127,6 +135,10 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
   return;
 }
 
+/**
+ * Helper function, solves a quadratic equation. This is used to calculate
+ * the intersection of rays and spheres, as a sphere is a quadratic function
+ */
 bool Camera::solve_quadratic(double a, double b, double c, 
                                     double &x0, double &x1) {
   double discr = b * b - 4 * a * c;
@@ -143,6 +155,10 @@ bool Camera::solve_quadratic(double a, double b, double c,
   return true;
 }
 
+/**
+ * Calculates whether a ray intersects with a sphere. Returns true or false,
+ * storing the collision point in result if true.
+ */
 bool Camera::intersection(sphere object, Ray &prim_ray, Vec3 &result) {
   double t0, t1;
   Vec3 obj_center(object.x, object.y, object.z);
