@@ -7,7 +7,7 @@
 #include "ray.h"
 
 #define FOV 30;
-#define CAM_DISTANCE 1000.0f; // distance the camera is from 0,0,0
+#define CAM_DISTANCE 100.0f; // distance the camera is from 0,0,0
 
 struct pixel;
 struct sphere;

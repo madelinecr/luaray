@@ -4,6 +4,7 @@
 class Vec3 {
   public:
     Vec3(double x, double y, double z) : m_x(x),m_y(y),m_z(z) {};
+    Vec3(Vec3 const &avec);
     double dot(Vec3 v);
     Vec3 operator-(const Vec3& other);
     Vec3 operator+(const Vec3& other);

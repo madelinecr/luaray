@@ -7,11 +7,10 @@
 #include "stdint.h"
 
 struct sphere {
-  sphere(double ax, double ay, double az, double aradius,
-         double ared, double agreen, double ablue) 
-        : x(ax), y(ay), z(az), radius(aradius), 
-          red(ared), green(agreen), blue(ablue) {}
-  double x, y, z, radius, red, green, blue;
+  sphere(Vec3 *apos, double aradius, double ared, double agreen, double ablue) 
+        : pos(apos), radius(aradius), red(ared), green(agreen), blue(ablue) {}
+  Vec3 *pos;
+  double radius, red, green, blue;
 };
 
 struct light {

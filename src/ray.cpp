@@ -3,9 +3,9 @@
 /**
  * Creates a new ray, at ap1 pointing in direction ap2
  */
-Ray::Ray(Vec3& ap1, Vec3& ap2) {
-  p1 = &ap1;
-  p2 = &ap2;
+Ray::Ray(Vec3 ap1, Vec3 ap2) {
+  p1 = new Vec3(ap1);
+  p2 = new Vec3(ap2);
   return;
 }
 

@@ -22,10 +22,8 @@ int main(int argc, char** argv) {
     open(L);
     module(L) [
       class_<sphere>("sphere")
-        .def(constructor<double,double,double,double,double,double,double>())
-        .def_readwrite("x", &sphere::x)
-        .def_readwrite("y", &sphere::y)
-        .def_readwrite("z", &sphere::z)
+        .def(constructor<Vec3*,double,double,double,double>())
+        .def_readwrite("position", &sphere::pos)
         .def_readwrite("radius", &sphere::radius)
         .def_readwrite("red", &sphere::red)
         .def_readwrite("green", &sphere::green)
