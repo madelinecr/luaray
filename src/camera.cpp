@@ -65,11 +65,13 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
     }
   }
 
+  bool interception = false;
   for(int i = 0; i < scene->spheres.size(); i++) {
     for(int l = 0; l < scene->lights.size(); l++) {
 
       Vec3 point(0, 0, 0);
       if(intersection(*scene->spheres[i], prim_ray, point)) {
+        interception = true;
         sphere *s = scene->spheres[i];
         light *current_light = scene->lights[l];
         Vec3 light_pos(*scene->lights[l]->pos);
@@ -113,6 +115,11 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
 //        }
       }
     }
+  }
+  if(interception == false) {
+    pix.red = SKY_INTENSITY * y;
+    pix.green = SKY_INTENSITY * y;
+    pix.blue = SKY_INTENSITY * y * SKY_BLUE;
   }
   return;
 }
