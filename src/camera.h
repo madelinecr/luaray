@@ -4,6 +4,7 @@
 #include "stdint.h"
 
 #include "vec3.h"
+#include "ray.h"
 
 #define FOV 30;
 #define CAM_DISTANCE 1000.0f; // distance the camera is from 0,0,0
@@ -11,13 +12,6 @@
 struct pixel;
 struct sphere;
 class Scene;
-
-class Ray {
-  public:
-    Ray(Vec3& ap1, Vec3& ap2);
-    void eval(double t, Vec3 &result);
-    Vec3 *p1,*p2;
-};
 
 class Camera {
   public:
