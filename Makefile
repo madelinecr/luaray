@@ -7,7 +7,7 @@ LINKFLAGS=-llua5.2 -lluabind
 SRCDIR=src
 ODIR=build
 EXECUTABLE=raytrace
-SOURCES=main.cpp camera.cpp bitmap.cpp scene.cpp vec3.cpp ray.cpp object.cpp primitives.cpp
+SOURCES=main.cpp camera.cpp bitmap.cpp scene.cpp vec3.cpp ray.cpp object.cpp primitives.cpp color.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 
 all: $(addprefix $(ODIR)/, $(OBJECTS)) $(EXECUTABLE)

@@ -1,6 +1,8 @@
 #include "camera.h"
 #include "scene.h"
 #include "bitmap.h"
+#include "primitives.h"
+#include "color.h"
 
 #include <iostream>
 #include <fstream>
@@ -21,13 +23,15 @@ int main(int argc, char** argv) {
     lua_State* L = luaL_newstate();
     open(L);
     module(L) [
-      class_<sphere>("sphere")
-        .def(constructor<Vec3*,double,double,double,double>())
-        .def_readwrite("position", &sphere::pos)
-        .def_readwrite("radius", &sphere::radius)
-        .def_readwrite("red", &sphere::red)
-        .def_readwrite("green", &sphere::green)
-        .def_readwrite("blue", &sphere::blue),
+      class_<Color>("Color")
+        .def(constructor<uint16_t,uint16_t,uint16_t>())
+        .def("r", &Color::r)
+        .def("g", &Color::g)
+        .def("b", &Color::b),
+      class_<Object>("Object")
+        .def(constructor<Vec3, Color>()),
+      class_<Sphere, Object>("Sphere")
+        .def(constructor<Vec3,Color,double>()),
       class_<light>("light")
         .def(constructor<Vec3*,double>())
         .def_readwrite("position", &light::pos)
@@ -42,7 +46,7 @@ int main(int argc, char** argv) {
         .def("render", &Camera::render),
       class_<Scene>("Scene")
         .def(constructor<>())
-        .def("add_sphere", &Scene::add_sphere)
+        .def("add_object", &Scene::add_object)
         .def("add_light", &Scene::add_light)
     ];
 

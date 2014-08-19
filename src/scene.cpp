@@ -3,8 +3,8 @@
 
 Scene::Scene(){}
 
-void Scene::add_sphere(sphere *asphere) {
-  spheres.push_back(asphere);  
+void Scene::add_object(Object *anobject) {
+  objects.push_back(anobject);
   std::cout << "sphere pushed" << std::endl;
 }
 

@@ -2,6 +2,7 @@
 #define SCENE_H
 
 #include "vec3.h"
+#include "object.h"
 
 #include <vector>
 #include "stdint.h"
@@ -22,9 +23,9 @@ struct light {
 class Scene {
   public:
     Scene();
-    void add_sphere(sphere *asphere);
+    void add_object(Object *anobject);
     void add_light(light *alight);
-    std::vector<sphere*> spheres;
+    std::vector<Object*> objects;
     std::vector<light*> lights;
 };
 

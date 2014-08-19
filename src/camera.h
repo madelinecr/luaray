@@ -21,10 +21,7 @@ class Camera {
     void render();
   private:
     void trace(const uint16_t x, const uint16_t y, pixel &pix);
-    bool solve_quadratic(double a, double b, double c, double &x0,
-                                double &x1);
 
-    bool intersection(sphere object, Ray &prim_ray, Vec3 &result);
     Scene *scene;
     unsigned int width, height;
     pixel **pixels;

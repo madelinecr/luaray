@@ -66,16 +66,17 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
   }
 
   bool interception = false;
-  for(int i = 0; i < scene->spheres.size(); i++) {
+  for(int i = 0; i < scene->objects.size(); i++) {
     for(int l = 0; l < scene->lights.size(); l++) {
 
       Vec3 point(0, 0, 0);
-      if(intersection(*scene->spheres[i], prim_ray, point)) {
+      Object *o = scene->objects[i];
+      //if(intersection(*scene->objects[i], prim_ray, point)) {
+      if(o->intersection(prim_ray, point)) {
         interception = true;
-        sphere *s = scene->spheres[i];
         light *current_light = scene->lights[l];
         Vec3 light_pos(*scene->lights[l]->pos);
-        Vec3 sphere_pos(*scene->spheres[i]->pos);
+        Vec3 sphere_pos(scene->objects[i]->getPos());
         Vec3 light_localpos = light_pos - sphere_pos;
         Vec3 normal = point - sphere_pos;
 
@@ -84,9 +85,9 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
         double angle = light_localpos.dot(normal);
 
         if(angle >= 0.01f) {
-          pix.red = pix.red + s->red * angle * current_light->intensity;
-          pix.green = pix.green + s->green * angle * current_light->intensity;
-          pix.blue = pix.blue + s->blue * angle * current_light->intensity;
+          pix.red = pix.red + o->getColor().r() * angle * current_light->intensity;
+          pix.green = pix.green + o->getColor().g() * angle * current_light->intensity;
+          pix.blue = pix.blue + o->getColor().b() * angle * current_light->intensity;
         }
 
 //        Vec3 shadow_p1(point);
