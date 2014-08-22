@@ -5,7 +5,7 @@ CFLAGS=-g -Wall -pedantic -O0
 SRCDIR=src
 ODIR=build
 LIBS=math render scene
-SOURCES=math/ray.cpp math/vec3.cpp
+SOURCES=math/ray.cpp math/vec3.cpp \
 				render/bitmap.cpp \
 				scene/camera.cpp scene/color.cpp scene/object.cpp scene/primitives.cpp \
 				scene/scene.cpp \
