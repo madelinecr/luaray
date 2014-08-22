@@ -38,7 +38,7 @@ bool Sphere::intersection(Ray prim_ray, Vec3 &result) {
  * Helper function, solves a quadratic equation. This is used to calculate
  * the intersection of rays and spheres, as a sphere is a quadratic function
  */
-bool Sphere::solve_quadratic(double a, double b, double c, 
+bool Sphere::solve_quadratic(double a, double b, double c,
                                     double &x0, double &x1) {
   double discr = b * b - 4 * a * c;
   if(discr < 0) {

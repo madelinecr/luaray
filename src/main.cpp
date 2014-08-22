@@ -1,8 +1,8 @@
 #include "camera.h"
 #include "scene.h"
-#include "bitmap.h"
 #include "primitives.h"
 #include "color.h"
+#include "bitmap.h"
 
 #include <iostream>
 #include <fstream>

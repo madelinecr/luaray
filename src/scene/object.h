@@ -1,9 +1,9 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-#include "vec3.h"
+#include "../math/vec3.h"
+#include "../math/ray.h"
 #include "color.h"
-#include "ray.h"
 
 class Object {
   public:

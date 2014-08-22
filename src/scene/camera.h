@@ -3,8 +3,8 @@
 
 #include "stdint.h"
 
-#include "vec3.h"
-#include "ray.h"
+#include "../math/vec3.h"
+#include "../math/ray.h"
 
 #define SKY_INTENSITY 0.2f
 #define SKY_BLUE 2

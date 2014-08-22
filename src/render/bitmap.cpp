@@ -62,7 +62,7 @@ void Bitmap::write(pixel ** data) {
 void Bitmap::to_disk(char* const filename) {
   std::ofstream ofs;
   ofs.open(filename, std::ofstream::out | std::ofstream::binary);
-  
+
   // write header
   ofs.write(reinterpret_cast<char*>(&bmp_data.header_field), 2);
   ofs.write((char*)(&bmp_data.size), 4);
@@ -82,7 +82,7 @@ void Bitmap::to_disk(char* const filename) {
   ofs.write((char*)(&bmp_data.vertical_res), 4);
   ofs.write((char*)(&bmp_data.colors_number), 4);
   ofs.write((char*)(&bmp_data.important_colors), 4);
-  
+
   // write pixmap
   ofs.write(bmp_data.pixels, bmp_data.image_size);
 
