@@ -21,6 +21,7 @@ class Camera {
     void render();
   private:
     void trace(const uint16_t x, const uint16_t y, pixel &pix);
+    bool shadow(const Ray shadow_ray, const int obj_id);
 
     Scene *scene;
     unsigned int width, height;

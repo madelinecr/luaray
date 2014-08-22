@@ -84,36 +84,15 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
         normal.normalize();
         double angle = light_localpos.dot(normal);
 
-        if(angle >= 0.01f) {
+        // Shadow calculation
+        Ray shadow_ray(point, light_localpos);
+        bool in_shadow = shadow(shadow_ray, i);
+
+        if(angle >= 0.01f && !in_shadow) {
           pix.red = pix.red + o->getColor().r() * angle * current_light->intensity;
           pix.green = pix.green + o->getColor().g() * angle * current_light->intensity;
           pix.blue = pix.blue + o->getColor().b() * angle * current_light->intensity;
         }
-
-//        Vec3 shadow_p1(point);
-//        Vec3 shadow_p2(lightdir);
-//
-//        Ray shadow_ray(shadow_p1, shadow_p2);
-//        bool in_shadow = false;
-//
-//        for(int k = 0; k < scene->spheres.size(); k++) {
-//          Vec3 shadow_point(0, 0, 0);
-//          if(i == k) {
-//            break;
-//          }
-//          if(intersection(*scene->spheres[k], shadow_ray, shadow_point)) {
-//            //in_shadow = true;
-//          } else {
-//            //cout << "out of shadow" << endl;
-//          }
-//        }
-
-//        double angle = lightdir.dot(normal);
-//        if(angle >= 0.01f && !in_shadow) {
-//          //pix.red = pix.red + s->red * angle * current_light->intensity;
-//          //pix.green = pix.green + s->green * angle * current_light->intensity;
-//          //pix.blue = pix.blue + s->blue * angle * current_light->intensity;
-//        }
       }
     }
   }
@@ -123,4 +102,15 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
     pix.blue = SKY_INTENSITY * y * SKY_BLUE;
   }
   return;
+}
+
+bool Camera::shadow(const Ray shadow_ray, const int obj_id) {
+  for(int k = 0; k < scene->objects.size(); k++) {
+    Vec3 shadow_point(0, 0, 0);
+    if(obj_id == k) return false;
+    if(scene->objects[k]->intersection(shadow_ray, shadow_point)) {
+      return true;
+    }
+  }
+  return false;
 }
