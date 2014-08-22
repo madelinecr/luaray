@@ -56,15 +56,6 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
   Vec3 p2(0, 0, 1);
   Ray prim_ray(p1, p2);
 
-  if(scene->lights.size() == 1) {
-    if(scene->lights[0]->pos->m_x == x && scene->lights[0]->pos->m_y == y) {
-      pix.red = 255;
-      pix.green = 255;
-      pix.blue = 255;
-      return;
-    }
-  }
-
   bool interception = false;
   for(int i = 0; i < scene->objects.size(); i++) {
     for(int l = 0; l < scene->lights.size(); l++) {
