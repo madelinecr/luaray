@@ -62,27 +62,25 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
   Ray prim_ray(p1, p2);
 
   bool interception = false;
-  for(int i = 0; i < scene->objects.size(); i++) {
-    for(int l = 0; l < scene->lights.size(); l++) {
+  for(auto &o: scene->objects) {
+    for(auto &l: scene->lights) {
 
       Vec3 point(0, 0, 0);
-      auto o = scene->objects[i];
-      //if(intersection(*scene->objects[i], prim_ray, point)) {
       if(o->intersection(prim_ray, point)) {
         interception = true;
-        auto current_light = scene->lights[l];
-        Vec3 light_pos(scene->lights[l]->pos);
-        Vec3 sphere_pos(scene->objects[i]->getPos());
-        Vec3 light_localpos = light_pos - sphere_pos;
-        Vec3 normal = point - sphere_pos;
+        auto current_light = l;
+        Vec3 light_pos(l->pos);
+        Vec3 sphere_pos(o->getPos());
+        auto light_localpos = light_pos - sphere_pos;
+        auto normal = point - sphere_pos;
 
         light_localpos.normalize();
         normal.normalize();
-        double angle = light_localpos.dot(normal);
+        auto angle = light_localpos.dot(normal);
 
         // Shadow calculation
         Ray shadow_ray(point, light_localpos);
-        bool in_shadow = shadow(shadow_ray, i);
+        auto in_shadow = shadow(shadow_ray, o);
 
         if(angle >= 0.01f && !in_shadow) {
           pix.red = pix.red + o->getColor().r() * angle * current_light->intensity;
@@ -100,10 +98,10 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
   return;
 }
 
-bool Camera::shadow(const Ray shadow_ray, const int obj_id) {
+bool Camera::shadow(const Ray shadow_ray, const objptr object) {
   for(int k = 0; k < scene->objects.size(); k++) {
     Vec3 shadow_point(0, 0, 0);
-    if(obj_id == k) return false;
+    if(object == scene->objects[k]) return false;
     if(scene->objects[k]->intersection(shadow_ray, shadow_point)) {
       return true;
     }
