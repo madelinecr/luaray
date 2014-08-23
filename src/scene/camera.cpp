@@ -8,8 +8,6 @@
 #include <math.h>
 #include <chrono>
 
-using namespace std;
-
 Camera::Camera(uint16_t const width, uint16_t const height, Scene *scene) {
   this->scene = scene;
   this->width = width;
@@ -43,9 +41,10 @@ void Camera::render() {
 
   auto end = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed = end - start;
-  cout << "Render completed in " << elapsed.count() << " seconds" << endl;
+  std::cout << "Render completed in " << elapsed.count()
+            << " seconds" << std::endl;
 
-  cout << "resolution is " << width << "x" << height << endl;
+  std::cout << "resolution is " << width << "x" << height << std::endl;
   return;
 }
 
@@ -67,12 +66,12 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
     for(int l = 0; l < scene->lights.size(); l++) {
 
       Vec3 point(0, 0, 0);
-      Object *o = scene->objects[i];
+      auto o = scene->objects[i];
       //if(intersection(*scene->objects[i], prim_ray, point)) {
       if(o->intersection(prim_ray, point)) {
         interception = true;
-        light *current_light = scene->lights[l];
-        Vec3 light_pos(*scene->lights[l]->pos);
+        auto current_light = scene->lights[l];
+        Vec3 light_pos(scene->lights[l]->pos);
         Vec3 sphere_pos(scene->objects[i]->getPos());
         Vec3 light_localpos = light_pos - sphere_pos;
         Vec3 normal = point - sphere_pos;

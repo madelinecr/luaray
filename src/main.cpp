@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
       class_<Sphere, Object>("Sphere")
         .def(constructor<Vec3,Color,double>()),
       class_<light>("light")
-        .def(constructor<Vec3*,double>())
+        .def(constructor<Vec3,double>())
         .def_readwrite("position", &light::pos)
         .def_readwrite("intensity", &light::intensity),
       class_<Vec3>("Vec3")
