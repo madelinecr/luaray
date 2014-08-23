@@ -1,0 +1,65 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foundation | Welcome</title>
+    <link rel="stylesheet" href="css/foundation.css" />
+    <script src="js/vendor/modernizr.js"></script>
+  </head>
+  <body>
+  <div class="show-for-medium-up"><a href="https://github.com/pacebl/luaray"><img
+      style="position: absolute; top: 0; left: 0; border: 0;"
+      src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67"
+      alt="Fork me on GitHub"
+      data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a></div>
+    <div class="row">
+      <div class="columns small-12 medium-8 medium-centered">
+        <h1>Luaray</h1>
+        <h2>
+          <small>
+            An experimental programmatic raytracer with Lua
+          </small>
+        </h2>
+        <p>
+          Luaray is implemented in C++ with scenes described in the Lua scripting
+          language. It's an experimental raytracer and a learning project;
+          experimental in the sense that the author experiments with it, not that
+          it has a novel approach to tracing rays. Backward ray-tracing is used
+          to determine object visibility and shading, as described by Turner
+          Whitted in his 1980 paper 
+          <a href="http://www.cs.virginia.edu/~gfx/Courses/2003/ImageSynthesis/papers/General%20Rendering%20Stuff/An%20Improved%20Illumination%20Model%20for%20Shaded%20Display.pdf">
+            "An Improved Illumination Model for Shaded Display"
+          </a>.
+        </p>
+        <p>
+          Scenes written in Lua look like the following:
+        </p>
+        <pre>
+        s = Scene()
+        c = Camera(1280, 800, s)
+
+        sphere = Sphere(Vec3(600, 600, 10), Color(4, 10, 1), 50)
+        light = light(Vec3(300, 300, 5), 10)
+
+        s:add_object(sphere)
+        s:add_light(light)
+
+        c:render()
+        </pre>
+        <p>
+          Scenes are written this way so that multiple cameras can be defined,
+        and multiple images can be rendered from different vantage points in a
+        single scene. Some functionality is still being implemented, and this
+        raytracer is a work in progress.
+        </p>
+      </div>
+    </div>
+    
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+  </body>
+</html>
