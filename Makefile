@@ -1,5 +1,5 @@
 CC=clang++
-CFLAGS=-g -Wall -pedantic -O0 
+CFLAGS=-g -Wall -pedantic -O0 -std=c++11
 
 # Project configuration
 SRCDIR=src

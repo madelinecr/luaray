@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <math.h>
+#include <chrono>
 
 using namespace std;
 
@@ -25,6 +26,7 @@ Camera::Camera(uint16_t const width, uint16_t const height, Scene *scene) {
  * into the scene and writing these to disk in a bitmap.
  */
 void Camera::render() {
+  auto start = std::chrono::high_resolution_clock::now();
   for(uint16_t y = 0; y < height; y++) {
     for(uint16_t x = 0; x < width; x++) {
       pixel pix = { 0, 0, 0 };
@@ -38,6 +40,10 @@ void Camera::render() {
   Bitmap bitmap(width, height);
   bitmap.write(this->pixels);
   bitmap.to_disk((char*)("bitmap.bmp"));
+
+  auto end = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> elapsed = end - start;
+  cout << "Render completed in " << elapsed.count() << " seconds" << endl;
 
   cout << "resolution is " << width << "x" << height << endl;
   return;
