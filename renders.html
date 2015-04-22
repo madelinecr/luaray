@@ -6,6 +6,11 @@
     <title>The Luaray Programmatic Raytracer</title>
     <link rel="stylesheet" href="css/foundation.css" />
     <script src="js/vendor/modernizr.js"></script>
+    <style>
+      a img {
+        padding: 1em;
+      }
+    </style>
   </head>
   <body>
     <div class="row">
@@ -19,43 +24,15 @@
             <li><a href="renders.html">Renders</a></li>
           </ul>
         </nav>
-        <h2>
-          <small>
-            An experimental programmatic raytracer with Lua
-          </small>
-        </h2>
-        <p>
-          Luaray is implemented in C++ with scenes described in the Lua scripting
-          language. It's an experimental raytracer and a learning project;
-          experimental in the sense that the author experiments with it, not that
-          it has a novel approach to tracing rays. Backward ray-tracing is used
-          to determine object visibility and shading, as described by Turner
-          Whitted in his 1980 paper 
-          <a href="http://www.cs.virginia.edu/~gfx/Courses/2003/ImageSynthesis/papers/General%20Rendering%20Stuff/An%20Improved%20Illumination%20Model%20for%20Shaded%20Display.pdf">
-            "An Improved Illumination Model for Shaded Display"
-          </a>. Orthographic projection is used when casting rays.
-        </p>
-        <p>
-          Scenes written in Lua look like the following:
-        </p>
-        <pre>
-        s = Scene()
-        c = Camera(1280, 800, s)
+      </div>
+    </div>
 
-        sphere = Sphere(Vec3(600, 600, 10), Color(4, 10, 1), 50)
-        light = light(Vec3(300, 300, 5), 10)
-
-        s:add_object(sphere)
-        s:add_light(light)
-
-        c:render()
-        </pre>
-        <p>
-          Scenes are written this way so that multiple cameras can be defined,
-        and multiple images can be rendered from different vantage points in a
-        single scene. Some functionality is still being implemented, and this
-        raytracer is a work in progress.
-        </p>
+    <div class="row">
+      <div class="columns small-12 medium-6">
+        <a href="img/triplet.png"><img src="img/triplet.png"></a>
+      </div>
+      <div class="columns small-12 medium-6">
+        <a href="img/row.png"><img src="img/row.png"></a>
       </div>
     </div>
 
