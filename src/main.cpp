@@ -56,7 +56,7 @@ int main(int argc, char** argv) {
     }
 
     std::cout << "Execution finished." << std::endl;
-    lua_close(L);
+    //lua_close(L);
   } else {
     std::cout << "raytrace" << std::endl;
     std::cout << "Usage: raytrace scenefile.lua" << std::endl << std::endl;
