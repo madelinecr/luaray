@@ -7,7 +7,7 @@ ODIR=build
 LIBS=math render scene
 SOURCES=math/ray.cpp math/vec3.cpp \
 				render/bitmap.cpp \
-				scene/camera.cpp scene/color.cpp scene/object.cpp scene/primitives.cpp \
+				scene/camera.cpp scene/color.cpp scene/object.cpp scene/sphere.cpp \
 				scene/scene.cpp \
 				main.cpp
 EXECUTABLE=raytrace

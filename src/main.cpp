@@ -1,6 +1,6 @@
 #include "camera.h"
 #include "scene.h"
-#include "primitives.h"
+#include "sphere.h"
 #include "color.h"
 #include "bitmap.h"
 

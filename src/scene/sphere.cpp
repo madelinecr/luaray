@@ -1,4 +1,4 @@
-#include "primitives.h"
+#include "sphere.h"
 
 Sphere::Sphere(Vec3 apos, Color acolor, double aradius) : Object(apos, acolor) {
   radius = aradius;

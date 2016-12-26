@@ -1,5 +1,5 @@
-#ifndef PRIMITIVES_H
-#define PRIMITIVES_H
+#ifndef SPHERE_H
+#define SPHERE_H
 
 #include "object.h"
 
