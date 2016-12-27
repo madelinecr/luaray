@@ -1,3 +1,4 @@
 *.o
 raytrace
 bitmap.bmp
+.DS_Store
