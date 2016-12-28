@@ -24,23 +24,29 @@ Camera::Camera(uint16_t const width, uint16_t const height, Scene *scene) {
  * into the scene and writing these to disk in a bitmap.
  */
 void Camera::render() {
-  auto start = std::chrono::high_resolution_clock::now();
+  auto start = std::chrono::high_resolution_clock::now(); // start of calculations
+
+  // Individual ray tracing and pixel storage
   for(uint16_t y = 0; y < height; y++) {
     for(uint16_t x = 0; x < width; x++) {
-      pixel pix = { 0, 0, 0 };
-      trace(x, y, pix);
+      pixel pix = { 0, 0, 0 }; // result pixel
+      trace(x, y, pix); // trace a ray
+
+      // store copy of pixel data in array
       pixels[y][x].green = pix.green;
       pixels[y][x].red = pix.red;
       pixels[y][x].blue = pix.blue;
     }
   }
 
+  // Make a bitmap and write the raytraced pixels
   Bitmap bitmap(width, height);
   bitmap.write(this->pixels);
   bitmap.to_disk((char*)("bitmap.bmp"));
 
-  auto end = std::chrono::high_resolution_clock::now();
+  auto end = std::chrono::high_resolution_clock::now(); // end of calculations
   std::chrono::duration<double> elapsed = end - start;
+
   std::cout << "Render completed in " << elapsed.count()
             << " seconds" << std::endl;
 
@@ -57,15 +63,16 @@ void Camera::render() {
  * if intersection, cast shadow ray based on normal of item
  */
 void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
+  // create a primary ray and shoot it into the scene at x,y
   Vec3 p1(x, y, 0);
   Vec3 p2(0, 0, 1);
   Ray prim_ray(p1, p2);
 
-  bool interception = false;
+  bool interception = false; // primary ray interception
   for(auto &o: scene->objects) {
     for(auto &l: scene->lights) {
 
-      Vec3 point(0, 0, 0);
+      Vec3 point(0, 0, 0); // vec3 to store result of intersection()
       if(o->intersection(prim_ray, point)) {
         interception = true;
         auto current_light = l;
