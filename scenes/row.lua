@@ -7,10 +7,12 @@ sphere3 = Sphere(Vec3(900,450,20),Color(10,1,10),100)
 light1 = light(Vec3(100,450,20),20)
 light2 = light(Vec3(1500,450,20),15)
 
+
 s:add_object(sphere1)
 s:add_object(sphere2)
 s:add_object(sphere3)
 s:add_light(light1)
 s:add_light(light2)
+
 
 c:render()
