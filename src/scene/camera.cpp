@@ -69,12 +69,11 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
   Ray prim_ray(p1, p2);
 
   bool interception = false; // primary ray interception
-  for(auto &o: scene->objects) {
-    for(auto &l: scene->lights) {
-
-      Vec3 point(0, 0, 0); // vec3 to store result of intersection()
-      if(o->intersection(prim_ray, point)) {
-        interception = true;
+  for(std::shared_ptr<Object>(&o): scene->objects) {
+    Vec3 point(0, 0, 0); // vec3 to store result of intersection()
+    if(o->intersection(prim_ray, point)) {
+      interception = true;
+      for(std::shared_ptr<light>(&l): scene->lights) {
         auto current_light = l;
         Vec3 light_pos(l->pos);
         Vec3 sphere_pos(o->getPos());
@@ -89,7 +88,7 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
         Ray shadow_ray(point, light_localpos);
         auto in_shadow = shadow(shadow_ray, o);
 
-        if(angle >= 0.01f && !in_shadow) {
+        if(angle >= 0.0000001f && !in_shadow) {
           pix.red = pix.red + o->getColor().r() * angle * current_light->intensity;
           pix.green = pix.green + o->getColor().g() * angle * current_light->intensity;
           pix.blue = pix.blue + o->getColor().b() * angle * current_light->intensity;
