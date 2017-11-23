@@ -74,19 +74,19 @@ void Camera::trace(const uint16_t x, const uint16_t y, pixel &pix) {
     if(o->intersection(prim_ray, point)) {
       interception = true;
       for(std::shared_ptr<light>(&l): scene->lights) {
-        auto current_light = l;
+        std::shared_ptr<light>(current_light) = l;
         Vec3 light_pos(l->pos);
         Vec3 sphere_pos(o->getPos());
-        auto light_localpos = light_pos - sphere_pos;
-        auto normal = point - sphere_pos;
+        Vec3 light_localpos = light_pos - sphere_pos;
+        Vec3 normal = point - sphere_pos;
 
         light_localpos.normalize();
         normal.normalize();
-        auto angle = light_localpos.dot(normal);
+        double angle = light_localpos.dot(normal);
 
         // Shadow calculation
         Ray shadow_ray(point, light_localpos);
-        auto in_shadow = shadow(shadow_ray, o);
+        bool in_shadow = shadow(shadow_ray, o);
 
         if(angle >= 0.0000001f && !in_shadow) {
           pix.red = pix.red + o->getColor().r() * angle * current_light->intensity;
