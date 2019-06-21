@@ -13,14 +13,14 @@ SOURCES=math/ray.cpp math/vec3.cpp \
 EXECUTABLE=raytrace
 
 # Lua compilation headers
-CFLAGS+=-I/usr/local/Cellar/lua51/5.1.5_4/include/lua-5.1/
+CFLAGS+=-I/usr/local/Cellar/lua@5.1/5.1.5_8/include/lua-5.1/
 # Luabind compilation headers
-CFLAGS+=-I/usr/local/Cellar/luabind/0.9.1_1/include
-CFLAGS+=-I/usr/local/Cellar/boost/1.60.0_2/include
+CFLAGS+=-I/usr/local/Cellar/luabind/0.9.1_2/include
+CFLAGS+=-I/usr/local/Cellar/boost/1.70.0/include
 # Lua library for linking stage
-LINKFLAGS=-L/usr/local/Cellar/lua51/5.1.5_4/lib/
-LINKFLAGS+=-L/usr/local/Cellar/luabind/0.9.1_1/lib/
-LINKFLAGS+=-L/usr/local/Cellar/boost/1.60.0_2/lib/
+LINKFLAGS=-L/usr/local/Cellar/lua@5.1/5.1.5_8/lib/
+LINKFLAGS+=-L/usr/local/Cellar/luabind/0.9.1_2/lib/
+LINKFLAGS+=-L/usr/local/Cellar/boost/1.70.0/lib/
 
 # Library flags
 LIBFLAGS=-llua5.1
